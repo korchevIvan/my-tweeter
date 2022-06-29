@@ -8,6 +8,10 @@
                 :user="tweet.user"
             />
             <p class="text-gray-300 whitespace-pre-wrap">{{ tweet.body }}</p>
+            <app-tweet
+                class="border border-gray-700 rounded-lg mt-4"
+                :tweet="tweet.original_tweet"
+            />
         </div>
     </div>
 </template>
