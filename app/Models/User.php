@@ -94,4 +94,11 @@ class User extends Authenticatable
             'following_id'
         );
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function likes() {
+        return $this->hasMany(Like::class);
+    }
 }
