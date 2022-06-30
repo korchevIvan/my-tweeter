@@ -31,4 +31,11 @@ class Tweet extends Model
     {
         return $this->hasOne(Tweet::class, 'id', 'original_tweet_id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function likes() {
+        return $this->hasMany(Like::class);
+    }
 }
