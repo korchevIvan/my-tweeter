@@ -26,7 +26,7 @@ class TimelineController extends Controller
                 'user',
                 'likes'
             ])
-            ->paginate(3);
+            ->paginate(4);
 
         return new TweetCollection($tweets);
     }
