@@ -11,12 +11,12 @@ export default {
     getters: {
         tweets(state) {
             return state.tweets
-                .sort((a,b) => b.created_at - a.created_at)
+                .sort((a, b) => b.created_at - a.created_at)
         }
     },
 
     mutations: {
-        PUSH_TWEETS (state, data) {
+        PUSH_TWEETS(state, data) {
             state.tweets.push(
                 ...data.filter((tweet) => {
                     return !state.tweets.map((t) => t.id).includes(tweet.id)
@@ -24,13 +24,19 @@ export default {
             )
         },
 
-        SET_LIKES (state, {id, count}) {
+        POP_TWEET(state, id) {
+            state.tweets = state.tweets.filter((t) => {
+                return t.id !== id
+            })
+        },
+
+        SET_LIKES(state, {id, count}) {
             state.tweets = state.tweets.map((t) => {
                 if (t.id === id) {
                     t.likes_count = count
                 }
 
-                if ( get(t.original_tweet, 'id') === id ) {
+                if (get(t.original_tweet, 'id') === id) {
                     t.original_tweet.likes_count = count
                 }
 
@@ -38,13 +44,13 @@ export default {
             })
         },
 
-        SET_RETWEETS (state, {id, count}) {
+        SET_RETWEETS(state, {id, count}) {
             state.tweets = state.tweets.map((t) => {
                 if (t.id === id) {
                     t.retweets_count = count
                 }
 
-                if ( get(t.original_tweet, 'id') === id ) {
+                if (get(t.original_tweet, 'id') === id) {
                     t.original_tweet.retweets_count = count
                 }
 
@@ -56,7 +62,7 @@ export default {
     },
 
     actions: {
-        async getTweets ({ commit }, url) {
+        async getTweets({commit}, url) {
             let response = await axios.get(url)
 
             commit('PUSH_TWEETS', response.data.data)
