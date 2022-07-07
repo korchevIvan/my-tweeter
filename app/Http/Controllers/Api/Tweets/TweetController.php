@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\Tweets;
 
-use App\Events\Tweets\TweetWasCreated;
+use App\Events\Tweets\TweetWasDeleted;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tweet\TweetStoreRequest;
 use App\Tweets\TweetType;
@@ -23,6 +23,6 @@ class TweetController extends Controller
             ['type' => TweetType::TWEET]
         ));
 
-        broadcast(new TweetWasCreated($tweet));
+        broadcast(new TweetWasDeleted($tweet));
     }
 }
