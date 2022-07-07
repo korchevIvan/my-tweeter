@@ -9,9 +9,15 @@
             />
 
             <div class="flex justify-between">
-                <div>
+                <ul class="flex items-center">
+                    <li class="mr-4">
+                        <app-tweet-compose-media-button
+                            id="media-compose"
+                            @selected="handleMediaSelected"
+                        />
+                    </li>
 
-                </div>
+                </ul>
                 <div class="flex items-center justify-end">
                     <div>
                         <app-tweet-compose-limit
@@ -38,6 +44,11 @@ export default {
         return {
             form: {
                 body: ''
+            },
+
+            media: {
+                images: [],
+                video: null,
             }
         }
     },
@@ -47,6 +58,9 @@ export default {
             await axios.post('/api/tweets', this.form)
 
             this.form.body = ''
+        },
+        handleMediaSelected (files) {
+            console.log(files);
         }
     }
 }
