@@ -9,11 +9,13 @@
             <app-tweet-image-preview
                 :images="media.images"
                 v-if="media.images.length"
+                @removed="removeImage"
             />
 
             <app-tweet-video-preview
                 :video="media.video"
                 v-if="media.video"
+                @removed="removeVideo"
             />
 
 
@@ -56,7 +58,7 @@ export default {
 
             media: {
                 images: [],
-                video: null,
+                video: null
             },
 
             mediaTypes: {}
@@ -68,6 +70,16 @@ export default {
             await axios.post('/api/tweets', this.form)
 
             this.form.body = ''
+        },
+
+        removeVideo() {
+            this.media.video = null
+        },
+
+        removeImage(image) {
+            this.media.images = this.media.images.filter( (i) => {
+                return image !== i
+            })
         },
 
         async getMediaTypes () {
