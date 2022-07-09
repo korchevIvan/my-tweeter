@@ -76,6 +76,9 @@ export default {
             await axios.post('/api/tweets', this.form)
 
             this.form.body = ''
+            this.form.media = []
+            this.media.video = null
+            this.media.images = []
         },
 
         async uploadMedia() {
