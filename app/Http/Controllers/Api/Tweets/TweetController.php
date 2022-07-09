@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Api\Tweets;
 
-use App\Events\Tweets\TweetWasDeleted;
+use App\Events\Tweets\TweetWasCreated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tweet\TweetStoreRequest;
+use App\Models\TweetMedia;
 use App\Tweets\TweetType;
 use Illuminate\Http\Request;
 
@@ -23,6 +24,10 @@ class TweetController extends Controller
             ['type' => TweetType::TWEET]
         ));
 
-        broadcast(new TweetWasDeleted($tweet));
+        foreach ($request->media as $id) {
+            $tweet->media()->save(TweetMedia::find($id));
+        }
+
+        broadcast(new TweetWasCreated($tweet));
     }
 }

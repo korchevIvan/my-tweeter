@@ -35,21 +35,32 @@ class Tweet extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function likes() {
+    public function likes()
+    {
         return $this->hasMany(Like::class);
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function retweets() {
+    public function retweets()
+    {
         return $this->hasMany(Tweet::class, 'original_tweet_id');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function retweetedTweet() {
+    public function retweetedTweet()
+    {
         return $this->hasOne(Tweet::class, 'original_tweet_id', 'id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function media()
+    {
+        return $this->hasMany(TweetMedia::class);
     }
 }
