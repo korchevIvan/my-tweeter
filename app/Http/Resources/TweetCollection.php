@@ -6,8 +6,8 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class TweetCollection extends ResourceCollection
 {
-    /*
-     *
+    /**
+     * @var object
      */
     public $collects = TweetResource::class;
 

@@ -6427,11 +6427,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     tweet: {
       required: true,
       type: Object
+    }
+  },
+  computed: {
+    images: function images() {
+      return this.tweet.media.data.filter(function (m) {
+        return m.type === 'image';
+      });
     }
   }
 });
@@ -42392,12 +42406,10 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "flex w-full" }, [
-    _c("div", { staticClass: "mr-3" }, [
-      _c("img", {
-        staticClass: "w-12 rounded-full",
-        attrs: { src: _vm.tweet.user.avatar },
-      }),
-    ]),
+    _c("img", {
+      staticClass: "w-12 h-12 mr-3 rounded-full",
+      attrs: { src: _vm.tweet.user.avatar },
+    }),
     _vm._v(" "),
     _c(
       "div",
@@ -42408,6 +42420,26 @@ var render = function () {
         _c("p", { staticClass: "text-gray-300 whitespace-pre-wrap" }, [
           _vm._v(_vm._s(_vm.tweet.body)),
         ]),
+        _vm._v(" "),
+        _vm.images
+          ? _c(
+              "div",
+              { staticClass: "flex flex-wrap mb-4 mt-4" },
+              _vm._l(_vm.images, function (image, index) {
+                return _c(
+                  "div",
+                  { key: index, staticClass: "w-6/12 flex-grow" },
+                  [
+                    _c("img", {
+                      staticClass: "rounded-lg",
+                      attrs: { src: image.url },
+                    }),
+                  ]
+                )
+              }),
+              0
+            )
+          : _vm._e(),
         _vm._v(" "),
         _c("app-tweet-action-group", { attrs: { tweet: _vm.tweet } }),
       ],
