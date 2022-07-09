@@ -49,11 +49,13 @@
 
 <script>
 import axios from "axios";
+
 export default {
     data() {
         return {
             form: {
-                body: ''
+                body: '',
+                media: []
             },
 
             media: {
@@ -67,9 +69,37 @@ export default {
 
     methods: {
         async submit() {
+            let media = await this.uploadMedia()
+
+            this.form.media = media.data.data.map(r => r.id)
+
             await axios.post('/api/tweets', this.form)
 
             this.form.body = ''
+        },
+
+        async uploadMedia() {
+            return await axios.post('/api/media', this.buildMediaForm(), {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+        },
+
+        buildMediaForm() {
+            let form = new FormData()
+
+            if (this.media.images.length) {
+                this.media.images.forEach((image, index) => {
+                    form.append(`media[${index}]`, image)
+                })
+            }
+
+            if (this.media.video) {
+                form.append('media[0]', this.media.video)
+            }
+
+            return form
         },
 
         removeVideo() {
@@ -77,24 +107,24 @@ export default {
         },
 
         removeImage(image) {
-            this.media.images = this.media.images.filter( (i) => {
+            this.media.images = this.media.images.filter((i) => {
                 return image !== i
             })
         },
 
-        async getMediaTypes () {
+        async getMediaTypes() {
             let response = await axios.get('/api/media/types')
 
             this.mediaTypes = response.data.data
         },
 
-        handleMediaSelected (files) {
+        handleMediaSelected(files) {
             Array.from(files).splice(0, 4).forEach((file) => {
-                if ( this.mediaTypes.image.includes(file.type) ) {
+                if (this.mediaTypes.image.includes(file.type)) {
                     this.media.images.push(file)
                 }
 
-                if ( this.mediaTypes.video.includes(file.type) ) {
+                if (this.mediaTypes.video.includes(file.type)) {
                     this.media.video = file
                 }
             })
