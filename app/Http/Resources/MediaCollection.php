@@ -4,12 +4,12 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class TweetMediaCollection extends ResourceCollection
+class MediaCollection extends ResourceCollection
 {
     /**
-     * @var  object
+     * @var object
      */
-    public $collection = TweetMediaResource::class;
+    public $collects = MediaResource::class;
 
     /**
      * Transform the resource collection into an array.

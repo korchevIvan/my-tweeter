@@ -20,7 +20,7 @@ class MediaController extends Controller
      */
     public function store(MediaStoreRequest $request)
     {
-        $result = collect($request->media)->map(function ($media){
+        $result = collect($request->media)->map(function ($media) {
             return $this->addMedia($media);
         });
 
@@ -31,7 +31,8 @@ class MediaController extends Controller
      * @param $media
      * @return void
      */
-    protected function addMedia($media) {
+    protected function addMedia($media)
+    {
         $tweetMedia = TweetMedia::create([]);
         $tweetMedia->baseMedia()
             ->associate($tweetMedia->addMedia($media)->toMediaCollection())
