@@ -102,6 +102,8 @@ export default {
                 form.append('media[0]', this.media.video)
             }
 
+            console.log(form.get('media[0]'));
+
             return form
         },
 
