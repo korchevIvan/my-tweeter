@@ -5,6 +5,12 @@
             <app-tweet-compose-textarea
                 v-model="form.body"
             />
+            {{ media.progress }}
+            <AppTweetMediaProgress
+                class="mb-4"
+                :progress="media.progress"
+                v-if="media.progress"
+            />
 
             <app-tweet-image-preview
                 :images="media.images"
@@ -60,7 +66,8 @@ export default {
 
             media: {
                 images: [],
-                video: null
+                video: null,
+                progress: 0
             },
 
             mediaTypes: {}
@@ -69,10 +76,10 @@ export default {
 
     methods: {
         async submit() {
-            let media = await this.uploadMedia()
-
-            this.form.media = media.data.data.map(r => r.id)
-
+            if( this.media.images.length || this.media.video ) {
+                let media = await this.uploadMedia()
+                this.form.media = media.data.data.map(r => r.id)
+            }
             await axios.post('/api/tweets', this.form)
 
             this.form.body = ''
@@ -81,11 +88,16 @@ export default {
             this.media.images = []
         },
 
+        handleUploadProgress(event) {
+            this.media.progress = parseInt(Math.round((event.loaded / event.total) * 100))
+        },
+
         async uploadMedia() {
             return await axios.post('/api/media', this.buildMediaForm(), {
                 headers: {
                     'Content-Type': 'multipart/form-data'
-                }
+                },
+                onUploadProgress: this.handleUploadProgress
             })
         },
 
@@ -101,8 +113,6 @@ export default {
             if (this.media.video) {
                 form.append('media[0]', this.media.video)
             }
-
-            console.log(form.get('media[0]'));
 
             return form
         },
