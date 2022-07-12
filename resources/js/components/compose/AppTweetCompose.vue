@@ -86,6 +86,7 @@ export default {
             this.form.media = []
             this.media.video = null
             this.media.images = []
+            this.media.progress = 0
         },
 
         handleUploadProgress(event) {
