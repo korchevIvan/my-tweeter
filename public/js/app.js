@@ -5482,8 +5482,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.form.media = [];
                 _this.media.video = null;
                 _this.media.images = [];
+                _this.media.progress = 0;
 
-              case 11:
+              case 12:
               case "end":
                 return _context.stop();
             }
