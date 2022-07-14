@@ -30,17 +30,35 @@
 </template>
 
 <script>
-import compose from '../../mixins/compose'
 import axios from "axios";
+import {mapActions} from "vuex";
+
+import compose from '../../mixins/compose'
+
 export default {
     mixins: [
         compose
     ],
 
+    props: {
+        tweet: {
+            required: true,
+            type: Object
+        }
+    },
+
     methods: {
+        ...mapActions({
+            quoteTweet: 'timeline/quoteTweet'
+        }),
+
         async post () {
-            console.log('create a retweet with comment');
-            // await axios.post('/api/tweets', this.form)
+            await this.quoteTweet({
+                tweet: this.tweet,
+                data: this.form
+            })
+
+            this.$emit('success')
         }
     }
 }

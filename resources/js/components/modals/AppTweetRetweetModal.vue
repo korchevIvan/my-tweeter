@@ -1,7 +1,10 @@
 <template>
     <div>
         <app-tweet-retweet-compose
+            :tweet="tweet"
+            @success="$emit('close')"
         />
+
         <component
             v-if="tweet"
             class="border border-gray-700 rounded-lg mt-4 p-4"
