@@ -1,7 +1,9 @@
 <template>
     <ul class="flex mt-4">
         <li class="w-3/12">
-            <app-tweet-replay-action/>
+            <app-tweet-replay-action
+                :tweet="tweet"
+            />
         </li>
         <li class="w-3/12">
             <app-tweet-retweet-action
