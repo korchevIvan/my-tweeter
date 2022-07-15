@@ -5,10 +5,16 @@ namespace App\Http\Controllers\Api\Tweets;
 use App\Events\Tweets\TweetLikesWereUpdated;
 use App\Http\Controllers\Controller;
 use App\Models\Tweet;
+use App\Notifications\Tweets\TweetLiked;
 use Illuminate\Http\Request;
 
 class TweetLikeController extends Controller
 {
+    public function __contstruct()
+    {
+        $this->middleware(['auth:sanctum']);
+    }
+
     public function store(Tweet $tweet, Request $request)
     {
         if ($request->user()->hasLiked($tweet)) {
@@ -18,6 +24,11 @@ class TweetLikeController extends Controller
         $request->user()->likes()->create([
             'tweet_id' => $tweet->id
         ]);
+
+//        if ($request->user()->id !== $tweet->user_id) {
+            $tweet->user->notify(new TweetLiked($request->user(), $tweet));
+//        }
+
 
         broadcast(new TweetLikesWereUpdated($request->user(), $tweet));
     }
