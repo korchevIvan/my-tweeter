@@ -34,3 +34,5 @@ Route::post('/tweets/{tweet}/quotes', [\App\Http\Controllers\Api\Tweets\TweetQuo
 
 Route::post('/media', [\App\Http\Controllers\Api\Media\MediaController::class, 'store']);
 Route::get('/media/types', [\App\Http\Controllers\Api\Media\MediaTypesController::class, 'index']);
+
+Route::get('/notifications', [\App\Http\Controllers\Api\Notifications\NotificationController::class, 'index']);
