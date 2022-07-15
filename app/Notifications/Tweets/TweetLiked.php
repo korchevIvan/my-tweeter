@@ -6,9 +6,8 @@ use App\Http\Resources\TweetResource;
 use App\Http\Resources\UserResource;
 use App\Models\Tweet;
 use App\Models\User;
+use App\Notifications\DatabaseNotificationChannel;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
 class TweetLiked extends Notification
@@ -44,8 +43,12 @@ class TweetLiked extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return [DatabaseNotificationChannel::class];
     }
+
+//    public function type() {
+//
+//    }
 
     /**
      * Get the array representation of the notification.
