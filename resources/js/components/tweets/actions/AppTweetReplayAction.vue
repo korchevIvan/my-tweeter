@@ -1,5 +1,5 @@
 <template>
-    <a href="#" class="flex item-center text-base">
+    <a href="#" class="flex item-center text-base" @click.prevent="$modal.show(AppTweetReplayModal, {tweet})">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"
              class="fill-current text-gray-600 w-5 mr-2">
             <path
@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import AppTweetReplayModal from "../../modals/AppTweetReplayModal";
+
 export default {
     props: {
         tweet: {
@@ -17,5 +19,11 @@ export default {
             type: Object
         }
     },
+
+    data() {
+        return {
+            AppTweetReplayModal
+        }
+    }
 }
 </script>

@@ -1,14 +1,14 @@
 <template>
     <div>
-        <app-tweet-retweet-compose
-            :tweet="tweet"
-            @success="$emit('close')"
-        />
-
         <component
             v-if="tweet"
-            class="border border-gray-700 rounded-lg mt-4 p-4"
             :is="`app-tweet-variant-${tweet.type}`"
+            class="mb-4"
+            :tweet="tweet"
+        />
+
+        <app-tweet-reply-compose
+            v-if="tweet"
             :tweet="tweet"
         />
     </div>
@@ -16,7 +16,10 @@
 
 <script>
 
+import AppTweetReplyCompose from "../compose/AppTweetReplyCompose";
+
 export default {
+    components: {AppTweetReplyCompose},
     props: {
         tweet: {
             required: true,
