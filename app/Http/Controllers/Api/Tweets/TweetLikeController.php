@@ -11,7 +11,7 @@ class TweetLikeController extends Controller
 {
     public function __contstruct()
     {
-        $this->middleware(['auth:sanctum'])->only(['store']);
+        $this->middleware(['auth:sanctum']);
     }
 
     public function store(Tweet $tweet, Request $request)
