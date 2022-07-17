@@ -15,6 +15,20 @@ class Tweet extends Model
      */
     protected $guarded = false;
 
+    public static function boot() {
+        parent::boot();
+
+        static::created(function(Tweet $tweet) {
+            preg_match_all('/(?!\s)#([A-Za-z]\w*)\b/', $tweet->body, $matches, PREG_OFFSET_CAPTURE);
+
+            dd($matches);
+        });
+    }
+
+    /**
+     * @param Builder $builder
+     * @return Builder
+     */
     public function scopeParent(Builder $builder) {
         return $builder->whereNull('parent_id');
     }
