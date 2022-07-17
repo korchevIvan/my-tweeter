@@ -28,9 +28,9 @@ class TweetReplyController extends Controller
             $reply->media()->save(TweetMedia::find($id));
         }
 
-//        if ($request->user()->id !== $tweet->user_id) {
+        if ($request->user()->id !== $tweet->user_id) {
             $tweet->user->notify(new TweetRepliedTo($request->user(), $reply));
-//        }
+        }
 
         broadcast(new TweetRepliesWereUpdated($tweet));
     }
