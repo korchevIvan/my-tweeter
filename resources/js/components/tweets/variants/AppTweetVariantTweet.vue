@@ -5,7 +5,9 @@
             <app-tweet-username
                 :user="tweet.user"
             />
-            <p class="text-gray-300 whitespace-pre-wrap">{{ tweet.body }}</p>
+
+            <app-tweet-body :tweet="tweet" />
+
             <div class="flex flex-wrap mb-4 mt-4" v-if="images">
                 <div
                     class="w-6/12 flex-grow"
