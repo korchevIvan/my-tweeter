@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Tweets\Entities\EntityExtractor;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -19,9 +20,9 @@ class Tweet extends Model
         parent::boot();
 
         static::created(function(Tweet $tweet) {
-            preg_match_all('/(?!\s)#([A-Za-z]\w*)\b/', $tweet->body, $matches, PREG_OFFSET_CAPTURE);
-
-            dd($matches);
+            $tweet->entities()->createMany(
+                (new EntityExtractor($tweet->body))->getHashtagEntities()
+            );
         });
     }
 
