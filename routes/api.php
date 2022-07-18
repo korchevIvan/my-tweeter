@@ -24,6 +24,7 @@ Route::get('/tweets', [\App\Http\Controllers\Api\Tweets\TweetController::class, 
 Route::get('/tweets/{tweet}', [\App\Http\Controllers\Api\Tweets\TweetController::class, 'show']);
 Route::post('/tweets', [\App\Http\Controllers\Api\Tweets\TweetController::class, 'store']);
 
+Route::get('/tweets/{tweet}/replies', [\App\Http\Controllers\Api\Tweets\TweetReplyController::class, 'show']);
 Route::post('/tweets/{tweet}/replies', [\App\Http\Controllers\Api\Tweets\TweetReplyController::class, 'store']);
 
 Route::post('/tweets/{tweet}/likes', [\App\Http\Controllers\Api\Tweets\TweetLikeController::class, 'store']);
