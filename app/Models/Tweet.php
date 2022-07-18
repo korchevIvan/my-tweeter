@@ -36,6 +36,28 @@ class Tweet extends Model
     }
 
     /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function parents() {
+        $base = $this;
+        $parents = [];
+
+        while ($base->parentTweet) {
+            $parents[] = $base->parentTweet;
+            $base = $base->parentTweet;
+        }
+
+        return collect($parents);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function parentTweet() {
+        return $this->belongsTo(Tweet::class, 'parent_id');
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
