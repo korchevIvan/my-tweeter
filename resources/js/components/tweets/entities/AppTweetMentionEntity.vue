@@ -1,5 +1,5 @@
 <template>
-    <a :href="`/hashtag/${body}`">{{ body }}</a>
+    <a :href="`/users/${body}`">{{ body }}</a>
 </template>
 
 <script>
@@ -14,3 +14,4 @@ export default {
 }
 
 </script>
+

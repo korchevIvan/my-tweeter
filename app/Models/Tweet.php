@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Tweets\Entities\EntityExtractor;
+use App\Tweets\Entities\EntityType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -96,5 +97,13 @@ class Tweet extends Model
      */
     public function entities() {
         return $this->hasMany(Entity::class);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function mentions() {
+        return $this->hasMany(Entity::class)
+            ->whereType(EntityType::MENTION);
     }
 }
