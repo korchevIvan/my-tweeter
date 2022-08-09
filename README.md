@@ -10,5 +10,5 @@ Laravel, Vue, Vuex, Websocket,Tailwind
 
 <b>php artisan serve</b> - запуск бека <br/>
 <b>npm run dev</b> - сборка фронта <br/>
-<b>npm run dev</b> - сборка фронта и запуск вотчера файл <br/>
+<b>npm run watch</b> - сборка фронта и запуск вотчера файл <br/>
 <b>php artisan websocket:serve</b> - запуск вебсокета
